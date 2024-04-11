@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  transition: all 0.5s ease-in-out;
+}
+.navBar {
+  background-color: #f9862b;
+  display: flex;
+  justify-content: space-between;
+}
+.navRouting {
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+}
+.routingItem {
+  font-size: 3.5vmin;
+  align-content: center;
+  text-decoration: none;
+  color: white;
+  padding: 1.5vmin;
+}
+.routingItem:first-child {
+  margin-left: 0;
+  background: #f9862b;
+}
+.routingItem:first-child:hover {
+  background: #f9862b;
+}
+.routingItem:hover {
+  background: #f3c3a0;
+  color: black;
+}
+.authList {
+  font-size: 3.5vmin;
+  width: 10%;
+  display: flex;
+  justify-content: flex-end;
+}
+.authItem {
+  align-content: center;
+  text-decoration: none;
+  color: white;
+  padding: 2vmin;
+}
+.authItem:hover {
+  background: #f3c3a0;
+  color: black;
+}
+.logoA {
+  border: 0;
+  padding: 0;
+  margin-right: -1vmin;
+}
+.logoImg {
+  width: 7vmax;
+  height: 7vmax;
+}
