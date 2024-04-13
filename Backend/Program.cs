@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Backend.Repositories;
+using Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +19,6 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", policyBuilde
 }));
 builder.Services.AddControllers();
 
-AuthOptions authServer = new AuthOptions();
-
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -25,10 +26,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = authServer.ISSUER,
+                ValidIssuer = builder.Configuration["AuthOptions:Issuer"],
                 ValidateAudience = true,
-                ValidAudience = authServer.AUDIENCE,
-                IssuerSigningKey = authServer.GetSymmetricSecurityKey(),
+                ValidAudience = builder.Configuration["AuthOptions:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AuthOptions:KEY"]!)),
                 ValidateIssuerSigningKey = true
 
             };
@@ -36,6 +37,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     );
 
 builder.Services.AddDbContext<AppDbContext>();
+
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -64,3 +70,4 @@ app.UseCors("CorsPolicy");
 app.MapControllers();
 
 app.Run();
+

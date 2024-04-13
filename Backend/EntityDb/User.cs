@@ -2,17 +2,15 @@
 
 namespace Backend.EntityDb;
 
-public class User
+public class User(string username, string password, string salt)
 {
     [Key]
-    public int Id { get; init; }
-    public string? Username { get; init; }
-    
-    public string? Password { get; init; }
+    public int Id { get; set; }
+    public string? Username { get; set; } = username;
 
-   public User(string username, string password)
-    {
-        Username = username;
-        Password = password;
-    }
+    [MaxLength(64)]
+    public string? Password { get; set; } = password;
+
+    [MaxLength(10)]
+    public string? Salt { get; set; } = salt;
 }

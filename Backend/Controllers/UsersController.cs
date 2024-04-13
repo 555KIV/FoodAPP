@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Backend.EntityDb;
+using Backend.Model;
+using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -10,40 +12,42 @@ namespace Backend.Controllers;
 
 
 [ApiController]
-[Route("api/users")]
-public class UsersController(AppDbContext dataBase) : ControllerBase
+[Route("api/auth")]
+public class UsersController(AppDbContext dataBase, IUsersService userService) : ControllerBase
 {
-    private readonly AppDbContext _dataBase = dataBase;
-    private readonly AuthOptions _authOptions = new();
+    
+    private readonly IUsersService _usersService = userService;
 
   
-    [HttpPost]
-    public IResult PostLogin(User loginData)
+    [HttpPost("login")]
+    public async Task<IResult> PostLogin(UserAuthRequest loginData)
     {
-        User? person = _dataBase.Users.FirstOrDefault(p => p.Username == loginData.Username && p.Password == loginData.Password);
+
+        var person = await _usersService.GetUser(loginData.Username);
         
-        if (person is null) return Results.Unauthorized();
+        if (person is null) return Results.NotFound();
 
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name, person.Username) };
-
-        var jwt = new JwtSecurityToken(
-            issuer: _authOptions.ISSUER,
-            audience: _authOptions.AUDIENCE,
-            claims: claims,
-            expires: DateTime.Now.Add(TimeSpan.FromMinutes(2)),
-            signingCredentials: new SigningCredentials(_authOptions.GetSymmetricSecurityKey(),
-                SecurityAlgorithms.HmacSha256)
-        );
-
-        var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-        var response = new
+        try
         {
-            access_token = encodedJwt,
-            username = person.Username
-        };
+            var token = _usersService.Login(loginData.Username, loginData.Password);
+            UserAuthResponse response = new UserAuthResponse(loginData.Username, token.Result);
         
-        return Results.Json(response);
+            return Results.Json(response);
+        }
+        catch (Exception e)
+        {
+            return Results.Unauthorized();
+        }
+        
+    }
+
+
+    [HttpPost("register")]
+    public async Task<IResult> PostRegistr(UserAuthRequest regisData)
+    {
+        await _usersService.Register(regisData);
+        
+        return Results.Ok();
     }
     
     [Authorize]

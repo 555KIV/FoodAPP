@@ -18,7 +18,7 @@ public sealed class AppDbContext: DbContext
             .AddJsonFile("appsettings.json")
             .SetBasePath(Directory.GetCurrentDirectory())
             .Build();
-
+        //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=foodapp;Username=postgres;Password=R#17ad6Z");
         optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"));
     }
 }
