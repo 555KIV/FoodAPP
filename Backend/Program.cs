@@ -40,6 +40,9 @@ builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IDishRepository, DishRepository>();
+builder.Services.AddScoped<IFavorDishRepository, FavorDishRepository>();
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 
