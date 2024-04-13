@@ -6,6 +6,10 @@ namespace Backend;
 public sealed class AppDbContext: DbContext
 {
     public DbSet<User> Users => Set<User>();
+    public DbSet<Dish> Dishes => Set<Dish>();
+    public DbSet<FavoriteDish> FavoriteDishes => Set<FavoriteDish>();
+    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    
 
     public AppDbContext()
     {
