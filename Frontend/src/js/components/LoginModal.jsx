@@ -15,7 +15,8 @@ export default function LoginModal({ active, setActive }) {
     try {
       const response = await fetch("api/auth/login", {
         method: "POST",
-        body: JSON.stringify(sendObj),
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(sendObj)
       });
       console.log(response);
     } catch (err) {
