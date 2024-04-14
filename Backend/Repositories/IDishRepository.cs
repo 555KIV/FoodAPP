@@ -8,5 +8,9 @@ public interface IDishRepository
 
     Task<List<Dish>> GetAll();
 
+    Task<List<Dish>> GetPage(int page, int size);
+
+    Task<List<Dish>> GetFew(List<int> indexes);
+
     Task Add(Dish dish);
 }

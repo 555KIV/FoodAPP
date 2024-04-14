@@ -21,6 +21,24 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
         return await _dataBase.Dishes.AsNoTracking().ToListAsync();
     }
 
+    public async Task<List<Dish>> GetFew(List<int> indexes)
+    {
+        return await _dataBase.Dishes
+            .AsNoTracking()
+            .Where(p => (indexes.Contains(p.Id)))
+            .ToListAsync();
+
+    }
+
+    public async Task<List<Dish>> GetPage(int page, int size)
+    {
+        return await _dataBase.Dishes
+            .Skip((page - 1) * size)
+            .Take(size)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
     public async Task Add(Dish dish)
     {
         await _dataBase.Dishes.AddAsync(dish);

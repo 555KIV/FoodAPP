@@ -2,7 +2,7 @@
 
 namespace Backend.Model;
 
-public class StructureRequest
+public class AddDishRequest
 {
     public int IdDish;
 

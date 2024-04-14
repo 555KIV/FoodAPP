@@ -39,11 +39,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IDishService, DishService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IDishRepository, DishRepository>();
 builder.Services.AddScoped<IFavorDishRepository, FavorDishRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IStructuresRepository, StructuresRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IMapperHelper, MapperHelper>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

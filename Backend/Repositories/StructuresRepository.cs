@@ -16,17 +16,19 @@ public class StructuresRepository(AppDbContext dataBase) : IStructuresRepository
             .ToListAsync();
     }
 
-    public async Task Add(StructureRequest dish)
+    public async Task Add(AddDishRequest dish)
     {
         foreach (var sostav in (from ingre in dish.Ingredients 
                                                     from gram in dish.ListGrammovki 
                                                     from mease in dish.ListMeasurement 
                                                     select  Tuple.Create(ingre, gram, mease)))
         {
-            var intityInBase = new Structure(dish.IdDish, dish.Dish, sostav.Item1.Id, sostav.Item1, sostav.Item2, sostav.Item3);
+            //var intityInBase = new Structure(dish.IdDish, dish.Dish, sostav.Item1.Id, sostav.Item1, sostav.Item2, sostav.Item3);
 
-            await _dataBase.Structures.AddAsync(intityInBase);
+            //await _dataBase.Structures.AddAsync(intityInBase);
 
         }
+
+        
     }
 }

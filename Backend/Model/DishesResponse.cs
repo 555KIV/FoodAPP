@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Backend.Model;
 
-namespace Backend.EntityDb;
-
-public class Dish
+public class DishesResponse
 {
-    [Key]
     public int Id { get; set; }
     
-    [MaxLength(100)]
     public string? Name { get; set; }
     
     public short Calories { get; set; }
@@ -18,9 +14,6 @@ public class Dish
     
     public short Squirrels { get; set; }
     
-    public string? Recipe { get; set; }
-    
-    [MaxLength(20)]
     public string? CookingTime { get; set; }
     
 }

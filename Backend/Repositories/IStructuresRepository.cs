@@ -7,5 +7,5 @@ public interface IStructuresRepository
 {
     Task<List<Structure>> GetAllByIdDish(int id);
 
-    Task Add(StructureRequest dish);
+    Task Add(AddDishRequest dish);
 }

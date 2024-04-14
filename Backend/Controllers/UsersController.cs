@@ -13,7 +13,7 @@ namespace Backend.Controllers;
 
 [ApiController]
 [Route("api/auth")]
-public class UsersController(AppDbContext dataBase, IUsersService userService) : ControllerBase
+public class UsersController(IUsersService userService) : ControllerBase
 {
     
     private readonly IUsersService _usersService = userService;
