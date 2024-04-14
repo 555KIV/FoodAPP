@@ -7,6 +7,7 @@ public class Dish
     [Key]
     public int Id { get; set; }
     
+    [MaxLength(100)]
     public string? Name { get; set; }
     
     public short Calories { get; set; }
@@ -19,7 +20,4 @@ public class Dish
     
     public string? Recipe { get; set; }
     
-    public int[]? Ingredients { get; set; }
-    
-    public int[]? Grammovka { get; set; }
 }

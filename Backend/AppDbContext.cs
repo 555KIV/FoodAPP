@@ -9,6 +9,7 @@ public sealed class AppDbContext: DbContext
     public DbSet<Dish> Dishes => Set<Dish>();
     public DbSet<FavoriteDish> FavoriteDishes => Set<FavoriteDish>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<Structure> Structures => Set<Structure>();
     
 
     public AppDbContext()

@@ -6,6 +6,8 @@ public class User(string username, string password, string salt)
 {
     [Key]
     public int Id { get; set; }
+    
+    [MaxLength(30)]
     public string? Username { get; set; } = username;
 
     [MaxLength(64)]
