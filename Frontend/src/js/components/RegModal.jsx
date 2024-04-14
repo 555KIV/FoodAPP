@@ -2,7 +2,7 @@ import "../../css/modal.css";
 import { useState } from "react";
 import { sha256 } from "js-sha256";
 
-export default function RegModal({ active, setActive }) {
+export default function RegModal({ active, login, setActive }) {
   const [userName, setUserName] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
@@ -15,10 +15,15 @@ export default function RegModal({ active, setActive }) {
         username: userName,
         password: sha256(pass),
       };
+      setActive(false);
+      login(true);
       try {
-        const response = await fetch("api/auth/register", {
+        await fetch("api/auth/register", {
           method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(sendObj)
         });
       } catch (err) {

@@ -1,5 +1,5 @@
 import "../../css/navBar.css";
-import logo from "../../logo.png";
+import mainImg from "../../main.png";
 import RegModal from "./RegModal";
 import LoginModal from "./LoginModal";
 import { useState } from "react";
@@ -9,12 +9,10 @@ export default function Header() {
   const [loginModalActive, setLoginModalActive] = useState(false);
   return (
     <>
+      <img src={mainImg} alt="" className="mainImg" />
       <header>
         <nav className="navBar">
           <div className="navRouting">
-            <a className="routingItem logoA" href="http://localhost:3000/">
-              <img className="logoImg" src={logo} alt="logoHere" />
-            </a>
             <a className="routingItem" href="http://localhost:3000/">
               Главная
             </a>
@@ -40,9 +38,12 @@ export default function Header() {
             </button>
           </div>
         </nav>
+        <div className="title">Что</div>
+        <div className="title">готовим?</div>
       </header>
       <RegModal
         active={regModalActive}
+        login={setLoginModalActive}
         setActive={setRegModalActive}
       ></RegModal>
       <LoginModal
