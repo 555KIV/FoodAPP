@@ -37,12 +37,15 @@
   justify-content: flex-end;
 }
 .authItem {
+  background-color: #f9862b;
+  border: none;
+  font-size: 3.5vmin;
   align-content: center;
-  text-decoration: none;
   color: white;
   padding: 2vmin;
 }
 .authItem:hover {
+  cursor: pointer;
   background: #f3c3a0;
   color: black;
 }
