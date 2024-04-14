@@ -19,7 +19,7 @@ export default function LoginModal({ active, setActive }) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(sendObj),
+        body: JSON.stringify(sendObj)
       });
       console.log(response);
     } catch (err) {

@@ -24,7 +24,7 @@ export default function RegModal({ active, login, setActive }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(sendObj),
+          body: JSON.stringify(sendObj)
         });
       } catch (err) {
         console.log(err);
