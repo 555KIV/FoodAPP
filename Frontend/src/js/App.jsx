@@ -1,12 +1,11 @@
 import "../css/App.css";
-import Header from "./components/Header";
-import LoadUsersBtn from "./components/LoadUsersBtn";
-import { useState } from "react";
+import NewHeader from "./components/Header";
+import ScrollBtns from "./components/ScrollBtns";
 export default function App() {
   return (
     <>
-      <Header></Header>
-      <LoadUsersBtn></LoadUsersBtn>
+      <NewHeader></NewHeader>
+      <ScrollBtns></ScrollBtns>
     </>
   );
 }
