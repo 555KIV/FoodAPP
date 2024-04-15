@@ -13,9 +13,11 @@
 }
 
 .navBar {
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
+  height: 10vh;
   width: 100%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.7);
@@ -42,8 +44,28 @@
 .authList {
   font-size: 3.5vmin;
   width: 10%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
+  scale: 0;
+}
+.authList.authActive {
+  display: flex;
+  scale: 1;
+}
+.authUser {
+  font-family: "Candara", serif;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  font-size: 3.5vmin;
+  align-content: center;
+  color: white;
+  padding: 2vmin;
+  display: none;
+  scale: 0;
+}
+.authUser.authUserActive {
+  display: block;
+  scale: 1;
 }
 .authItem {
   font-family: "Candara", serif;
@@ -59,11 +81,23 @@
   background: rgba(139, 173, 8, 0.5);
   color: white;
 }
+.unAuthUserBtn {
+  cursor: pointer;
+  color: white;
+  font-family: "Candara", serif;
+  font-size: 4vmin;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+}
+.unAuthUserBtn:hover {
+  color: red;
+}
+
 .title {
   width: 100%;
   font-family: "Candara", serif;
   font-weight: bold;
-  margin-top: 20vmin;
+  margin-top: 25vh;
   font-size: 18vmin;
   z-index: 1;
   color: white;

@@ -8,24 +8,26 @@
   width: 100vw;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(100px);
   transform: scale(0);
 }
 .modal.active {
   transform: scale(1);
 }
 .modalContent {
+  font-family: Candara, serif;
   color: white;
   display: flex;
   flex-direction: column;
   padding: 1vmax;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(10px);
   font-size: 3.5vmin;
 }
 .modalContent label {
+  font-family: Candara, serif;
   display: flex;
   flex-direction: column;
   margin: 1vmax;
@@ -46,19 +48,21 @@
   align-self: center;
 }
 .modalContent input {
+  font-family: Candara, serif;
   margin: 1vmin 0;
   border-radius: 10px;
-  font-size: 2vmin;
+  font-size: 3vmin;
   padding: 1vmin;
   border: none;
 }
 .modalContent button {
+  font-family: Candara, serif;
   background: white;
   border-radius: 10px;
   border: none;
   margin: 1vmax;
   padding: 1vmin;
-  font-size: 2vmin;
+  font-size: 3vmin;
 }
 .modalContent button:hover {
   cursor: pointer;
