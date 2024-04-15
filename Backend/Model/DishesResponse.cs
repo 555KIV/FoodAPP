@@ -1,4 +1,6 @@
-﻿namespace Backend.Model;
+﻿using Backend.EntityDb;
+
+namespace Backend.Model;
 
 public class DishesResponse
 {
@@ -15,5 +17,9 @@ public class DishesResponse
     public short Squirrels { get; set; }
     
     public string? CookingTime { get; set; }
+    
+    public long IdImageLow { get; set; }
+    
+    public string? TypeFood { get; set; }
     
 }

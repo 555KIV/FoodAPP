@@ -8,9 +8,14 @@
       - "5000:8080"
   frontend:
     image: frontend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=5001
     build: 
-      context: .
-      dockerfile: Frontend/Dockerfile
+      context: ./Frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./Frontend/src:/app/src
     ports:
       - "5001:3000"
   proxy:

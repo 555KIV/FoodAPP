@@ -1,4 +1,5 @@
 ﻿using Backend.EntityDb;
+using Backend.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories;
@@ -17,7 +18,9 @@ public class IngredientRepository(AppDbContext dataBase) : IIngredientRepository
 
     public async Task<List<Ingredient>> GetAll()
     {
-        return await _dataBase.Ingredients.AsNoTracking().ToListAsync();
+        return await _dataBase.Ingredients
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task Add(Ingredient ingredient)
@@ -26,5 +29,17 @@ public class IngredientRepository(AppDbContext dataBase) : IIngredientRepository
         await _dataBase.SaveChangesAsync();
         
         return;
+    }
+    
+    public async Task<List<Ingredient>?> GetFilter(List<string?>? listLike, List<string?>? listNot)
+    {
+        return await _dataBase.Ingredients
+            .AsNoTracking()
+            .Where(p =>
+                (listLike!.Contains(p.Name)) &&
+                (!listNot!.Contains(p.Name))
+            )
+            .ToListAsync();
+        
     }
 }

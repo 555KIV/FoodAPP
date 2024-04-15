@@ -22,5 +22,12 @@ public class Dish
     
     [MaxLength(20)]
     public string? CookingTime { get; set; }
+
+    public long IdImageLow { get; set; }
     
+    //public long IdImageLarge { get; set; }
+    
+    public string? TypeFood { get; set; }
+   
 }
+

@@ -1,6 +1,6 @@
 ﻿using Backend.EntityDb;
 
-namespace Backend.Repositories;
+namespace Backend.IRepositories;
 
 public interface IDishRepository
 {
@@ -13,4 +13,8 @@ public interface IDishRepository
     Task<List<Dish>> GetFew(List<int> indexes);
 
     Task Add(Dish dish);
+
+    Task<List<Dish>> GetFilterTypeAndCalories(string? typefood, Tuple<short, short>? calories);
+
+    Task<List<Dish>> GetFilterIngred(List<int> listId);
 }
