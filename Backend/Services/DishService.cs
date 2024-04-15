@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.EntityDb;
+using Backend.IRepositories;
 using Backend.Model;
 using Backend.Repositories;
 
@@ -95,4 +96,38 @@ public class DishService(IDishRepository dishRepository,
 
     }
     
+    public async Task<List<string?>> GetIngredAll()
+    {
+        var listIngred = await _ingredientRepository.GetAll();
+
+        var res = new List<string?>();
+
+        foreach (var item in listIngred)
+        {
+            res.Add(item.Name);
+        }
+
+        return res;
+    }
+
+    public async Task<List<DishesResponse>> GetDishesFilter(FilterRequest filterRequest)
+    {
+        var firstListFilteredDishes = await _dishRepository
+            .GetFilterTypeAndCalories(filterRequest.Typefood, filterRequest.Calories);
+
+        var listFilterIngredients = await _ingredientRepository
+            .GetFilter(filterRequest.ListLoveIngred, filterRequest.ListNotLoveIngred);
+
+        var listId = _mapperHelper.MapIngredToInt(listFilterIngredients);
+        
+        var listStructers = await _structuresRepository.GetFilter(listId);
+
+        var listIdDishFromStruc = _mapperHelper.MapStructuresToInt(listStructers);
+
+        var secondFilteredDishes = await _dishRepository.GetFilterIngred(listIdDishFromStruc);
+
+        return _mapperHelper.MapDishToResponses(secondFilteredDishes);
+
+        
+    }
 }

@@ -25,7 +25,7 @@ public class Dish
 
     public long IdImageLow { get; set; }
     
-    public long IdImageLarge { get; set; }
+    //public long IdImageLarge { get; set; }
     
     public string? TypeFood { get; set; }
    

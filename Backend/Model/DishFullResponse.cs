@@ -20,7 +20,7 @@ public class DishFullResponse
 
     public string? CookingTime { get; set; }
     
-    public long IdImageLarge { get; set; }
+    public long IdImageLow { get; set; }
     
     public string? TypeFood { get; set; }
     
@@ -43,7 +43,7 @@ public class DishFullResponse
         Squirrels = dish.Squirrels;
         Recipe = dish.Recipe;
         CookingTime = dish.CookingTime;
-        IdImageLarge = dish.IdImageLarge;
+        IdImageLow = dish.IdImageLow;
         TypeFood = dish.TypeFood;
         Ingredients = new();
         ListGrammovki = new();

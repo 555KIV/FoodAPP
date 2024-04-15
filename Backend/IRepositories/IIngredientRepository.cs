@@ -1,6 +1,6 @@
 ﻿using Backend.EntityDb;
 
-namespace Backend.Repositories;
+namespace Backend.IRepositories;
 
 public interface IIngredientRepository
 {
@@ -9,5 +9,7 @@ public interface IIngredientRepository
     Task<List<Ingredient>> GetAll();
 
     Task Add(Ingredient ingredient);
+
+    Task<List<Ingredient>?> GetFilter(List<string?>? listLike, List<string?>? listNot);
 
 }

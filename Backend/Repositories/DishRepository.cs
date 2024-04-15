@@ -1,4 +1,6 @@
 ﻿using Backend.EntityDb;
+using Backend.IRepositories;
+using Backend.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories;
@@ -45,5 +47,26 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
         await _dataBase.SaveChangesAsync();
         
         return;
+    }
+
+    public async Task<List<Dish>> GetFilterTypeAndCalories(string? typefood, Tuple<short, short>? calories)
+    {
+        return await _dataBase.Dishes
+            .AsNoTracking()
+            .Where(p => 
+                (typefood == p.TypeFood) &&
+                (calories!.Item1<=p.Calories && calories!.Item2>=p.Calories)
+            )
+            .ToListAsync();
+
+    }
+
+    public async Task<List<Dish>> GetFilterIngred(List<int> listId)
+    {
+        return await _dataBase.Dishes
+            .AsNoTracking()
+            .Where(p => listId.Contains(p.Id))
+            .ToListAsync();
+
     }
 }

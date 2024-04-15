@@ -1,5 +1,8 @@
-﻿using Backend.EntityDb;
+﻿using AutoMapper;
+using Backend.EntityDb;
+using Backend.IRepositories;
 using Backend.Model;
+using Backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories;
@@ -30,5 +33,14 @@ public class StructuresRepository(AppDbContext dataBase) : IStructuresRepository
         }
 
         
+    }
+
+    public async Task<List<Structure>> GetFilter(List<int>? listIngred)
+    {
+        return await _dataBase.Structures
+            .AsNoTracking()
+            .Where(p=> listIngred!.Contains(p.IdIngredient))
+            .ToListAsync();
+
     }
 }

@@ -73,4 +73,18 @@ public class DishesController(IDishService dishService) : ControllerBase
     }
 
 
+    [HttpGet("get-all-ingred")]
+    public async Task<List<string?>> GetAllIngred()
+    {
+        return await _dishService.GetIngredAll();
+    }
+
+    [HttpPost("filter")]
+    public async Task<ActionResult<List<DishesResponse>>> GetByFilter(FilterRequest filterRequest)
+    {
+        return await _dishService.GetDishesFilter(filterRequest);
+    }
+    
+
+
 }
