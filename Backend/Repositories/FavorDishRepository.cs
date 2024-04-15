@@ -7,7 +7,7 @@ public class FavorDishRepository(AppDbContext dataBase) : IFavorDishRepository
 {
     private readonly AppDbContext _dataBase = dataBase;
 
-    public async Task<List<FavoriteDish>> GetList(int idUser)
+    public async Task<List<FavoriteDish>> GetList(long idUser)
     {
         return await _dataBase
             .FavoriteDishes

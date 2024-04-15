@@ -10,6 +10,7 @@ public sealed class AppDbContext: DbContext
     public DbSet<FavoriteDish> FavoriteDishes => Set<FavoriteDish>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<Structure> Structures => Set<Structure>();
+    public DbSet<Image> Images => Set<Image>();
     
 
     public AppDbContext()

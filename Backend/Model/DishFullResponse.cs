@@ -20,6 +20,10 @@ public class DishFullResponse
 
     public string? CookingTime { get; set; }
     
+    public long IdImageLarge { get; set; }
+    
+    public string? TypeFood { get; set; }
+    
     public List<string?>? Ingredients { get; set; }
     //public string? IngredientsStr { get; set; }
     //public string? GrammovkiStr { get; set; }
@@ -39,6 +43,8 @@ public class DishFullResponse
         Squirrels = dish.Squirrels;
         Recipe = dish.Recipe;
         CookingTime = dish.CookingTime;
+        IdImageLarge = dish.IdImageLarge;
+        TypeFood = dish.TypeFood;
         Ingredients = new();
         ListGrammovki = new();
         ListMeasurement = new();

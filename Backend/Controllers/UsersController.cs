@@ -50,15 +50,4 @@ public class UsersController(IUsersService userService) : ControllerBase
         return Results.Ok();
     }
     
-    [Authorize]
-    [HttpGet]
-    public IActionResult GetUsers()
-    {
-        var users = new[]
-        {
-            new { Name = "Oleg" },
-            new { Name = "Ivan" }
-        };
-        return Ok(users);
-    }
 }

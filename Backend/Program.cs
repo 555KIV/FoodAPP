@@ -44,9 +44,11 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IDishRepository, DishRepository>();
 builder.Services.AddScoped<IFavorDishRepository, FavorDishRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IImagesRepository, ImagesRepository>();
 builder.Services.AddScoped<IStructuresRepository, StructuresRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IMapperHelper, MapperHelper>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
