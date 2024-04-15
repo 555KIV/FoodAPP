@@ -18,13 +18,19 @@ public class FileController(IFileService fileService) : ControllerBase
         return PhysicalFile(path, "image/jpg");
     }
 
-    [HttpPost("add-file")]
-    public async Task<IActionResult> PostFile()
+    [HttpPost("add-file={idDish}")]
+    public async Task<ActionResult> PostFile(IFormFile? uploadFile, int idDish)
     {
-        
-        
+        if (uploadFile != null)
+        {
+            await _fileService.AddFile(uploadFile, idDish);
+            return Ok();
+        }
+
         return Problem();
+
     }
 
+    
    
 }

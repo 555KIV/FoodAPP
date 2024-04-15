@@ -6,5 +6,5 @@ public interface IImagesRepository
 {
     Task<Image?> Get(long id);
 
-    Task Add(Image image);
+    Task Add(string image, int idDish);
 }
