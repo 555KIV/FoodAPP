@@ -1,0 +1,32 @@
+.description {
+  scale: 0;
+  position: absolute;
+  background: #b6c6ca;
+  top: 100vh;
+  height: 120vh;
+  width: 100vw;
+  padding-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+}
+.description.active {
+  scale: 1;
+}
+.descriptionTitle {
+  font-family: "Candara", serif;
+  font-size: 5vmin;
+  font-weight: 1000;
+  text-align: center;
+  width: 70%;
+  color: #4f6166;
+}
+.descriptionText {
+  margin-top: 1vh;
+  font-family: "Candara Light", serif;
+  font-size: 3vmin;
+  text-align: justify;
+  width: 50vw;
+  color: #4f6166;
+}
