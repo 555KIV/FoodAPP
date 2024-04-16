@@ -22,12 +22,14 @@ export default function FilterForm({ setActiveDesc, setFilterResponse }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sendObj),
-      }).then((response) => {
-        if (response.ok) {
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
           setActiveDesc(false);
-          setFilterResponse(response.body);
-        }
-      });
+          setFilterResponse(data);
+        });
     } catch (err) {
       console.error(err);
     }

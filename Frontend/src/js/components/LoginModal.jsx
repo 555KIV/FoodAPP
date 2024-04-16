@@ -25,20 +25,21 @@ export default function LoginModal({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sendObj),
-      }).then((response) => {
-        console.log(response);
-        if (response.ok) {
-          localStorage.setItem("token", response.body.accessToken);
-          localStorage.setItem("userName", response.body.username);
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("token", data.accessToken);
+          localStorage.setItem("userName", data.username);
           setAuth(true);
           setActive(false);
-          setResponseUserName(response.body.username);
-        }
-        //localStorage.setItem("token", "123");
-        //localStorage.setItem("userName", "Bob");
-        //setActive(false);
-        //setAuth(true);
-      });
+          setResponseUserName(data.username);
+          //localStorage.setItem("token", "123");
+          //localStorage.setItem("userName", "Bob");
+          //setActive(false);
+          //setAuth(true);
+        });
     } catch (err) {
       console.log(err);
     }

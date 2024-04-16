@@ -7,17 +7,17 @@ export default function NavLinks({ setActiveDesc }) {
     <>
       <nav className="navBar">
         <div className="navRouting">
-          <a className="routingItem" href="http://localhost:3000/">
+          <a className="routingItem" href="/">
             Главная
           </a>
           <a
             className="routingItem"
-            href="http://localhost:3000/"
+            href="/"
             onClick={() => setActiveDesc(true)}
           >
             Анкета
           </a>
-          <a className="routingItem" href="http://localhost:3000/">
+          <a className="routingItem" href="/">
             Новый рецепт
           </a>
         </div>
