@@ -44,4 +44,14 @@ public class JwtProvider
         return tokenValue;
 
     }
+
+    public string GetUsername(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(token);
+        var tokenS = jsonToken as JwtSecurityToken;
+        var username = tokenS!.Claims.First(claim => claim.Type == ClaimTypes.Name).Value;
+        
+        return username;
+    }
 }

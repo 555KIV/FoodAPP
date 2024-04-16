@@ -18,4 +18,6 @@ public interface IDishService
     Task<List<string?>> GetIngredAll();
 
     Task<List<DishesResponse>> GetDishesFilter(FilterRequest filterRequest);
+
+    Task AddDish(DishFullResponse dish, string username);
 }

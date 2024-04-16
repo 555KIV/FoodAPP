@@ -9,5 +9,7 @@ public interface IMapperHelper
 
     List<int> MapIngredToInt(List<Ingredient>? item);
 
-    List<int> MapStructuresToInt(List<Structure>? item);
+    List<int?> MapStructuresToInt(List<Structure>? item);
+
+    Dish MapDishFullToDishEntity(DishFullResponse? item);
 }

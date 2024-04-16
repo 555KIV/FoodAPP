@@ -38,18 +38,28 @@ public class DishesController(IDishService dishService) : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("get-love={username}")]
-    public async Task<ActionResult<List<DishesResponse>>> GetDishesLoveAll(string username)
+    [HttpGet("get-love")]
+    public async Task<ActionResult<List<DishesResponse>>> GetDishesLoveAll()
     {
+        var vuf = this.HttpContext.Request.Headers["Authorization"].ToString();
+        string token = vuf.Substring("Bearer ".Length).Trim();
+        var jwt = new JwtProvider();
+        string username = jwt.GetUsername(token);
+        
         return await _dishService.GetDishesLoveAll(username);
     }
 
     [Authorize]
-    [HttpPost("like-dish={username};{idDish}")]
-    public async Task<IResult> PostLikeDish(string username, int idDish)
+    [HttpPost("like-dish={idDish}")]
+    public async Task<IResult> PostLikeDish(int idDish)
     {
         try
         {
+            var vuf = this.HttpContext.Request.Headers["Authorization"].ToString();
+            string token = vuf.Substring("Bearer ".Length).Trim();
+            var jwt = new JwtProvider();
+            string username = jwt.GetUsername(token);
+            
             await _dishService.LikeDish(username, idDish);
             
             return Results.Ok();
@@ -66,8 +76,12 @@ public class DishesController(IDishService dishService) : ControllerBase
     [HttpPost("create-dish")]
     public async Task<IResult> PostAddDish(DishFullResponse newDish)
     {
-
+        var vuf = this.HttpContext.Request.Headers["Authorization"].ToString();
+        string token = vuf.Substring("Bearer ".Length).Trim();
+        var jwt = new JwtProvider();
+        string username = jwt.GetUsername(token);
         
+        await _dishService.AddDish(newDish, username);
         
         return Results.Ok();
     }

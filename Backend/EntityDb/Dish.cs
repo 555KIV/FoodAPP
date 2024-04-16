@@ -5,7 +5,7 @@ namespace Backend.EntityDb;
 public class Dish
 {
     [Key]
-    public int Id { get; set; }
+    public int? Id { get; set; }
     
     [MaxLength(100)]
     public string? Name { get; set; }
@@ -23,7 +23,7 @@ public class Dish
     [MaxLength(20)]
     public string? CookingTime { get; set; }
 
-    public long IdImageLow { get; set; }
+    public long? IdImageLow { get; set; }
     
     //public long IdImageLarge { get; set; }
     

@@ -57,7 +57,25 @@ public class DishService(IDishRepository dishRepository,
             ingredients.Add(await _ingredientRepository.Get(item.IdIngredient));
         }
 
-        var result = new DishFullResponse(dish, structures, ingredients);
+        DishFullResponse result = new DishFullResponse();// new DishFullResponse(dish, structures, ingredients);
+        result.Id = (int)dish.Id!;
+        result.Name = dish.Name;
+        result.Calories = dish.Calories;
+        result.Carbohydrates = dish.Carbohydrates;
+        result.Fats = dish.Fats;
+        result.Squirrels = dish.Squirrels;
+        result.Recipe = dish.Recipe;
+        result.CookingTime = dish.CookingTime;
+        result.IdImageLow = (int)dish.IdImageLow!;
+        result.TypeFood = dish.TypeFood;
+        result.Ingredients = new();
+        
+        foreach (var item in structures)
+        {
+            result.Ingredients!.Add((ingredients.FirstOrDefault(p=>p.Id==item.IdIngredient)!.Name) 
+                             + " " + item.Grammovka + " " +item.Measurement);
+        }
+        
         
         return result;
     }
@@ -65,9 +83,9 @@ public class DishService(IDishRepository dishRepository,
     public async Task<List<DishesResponse>> GetDishesLoveAll(string username)
     {
         var user = await _usersRepository.Get(username);
-        var favorite = await _favorDishRepository.GetList(user.Id);
+        var favorite = await _favorDishRepository.GetList(user.Id!);
 
-        var indexes = new List<int>();
+        var indexes = new List<int?>();
         foreach (var item in favorite)
         {
             indexes.Add(item.IdDish);
@@ -85,11 +103,9 @@ public class DishService(IDishRepository dishRepository,
     {
         var user = await _usersRepository.Get(username);
 
-        var dish = await _dishRepository.Get(idDish);
+        var dish = await _dishRepository.Get((int)idDish!);
 
-        FavoriteDish? newFavoriteDish = new FavoriteDish(user!.Id, dish!.Id);
-        //newFavoriteDish.Dish = dish;
-        //newFavoriteDish.User = user;
+        FavoriteDish? newFavoriteDish = new FavoriteDish(user!.Id, (int)dish!.Id!);
 
         await _favorDishRepository.Add(newFavoriteDish);
 
@@ -115,19 +131,63 @@ public class DishService(IDishRepository dishRepository,
         var firstListFilteredDishes = await _dishRepository
             .GetFilterTypeAndCalories(filterRequest.Typefood, filterRequest.Calories);
 
-        var listFilterIngredients = await _ingredientRepository
-            .GetFilter(filterRequest.ListLoveIngred, filterRequest.ListNotLoveIngred);
-
-        var listId = _mapperHelper.MapIngredToInt(listFilterIngredients);
+        var listLoveIngredients = await _ingredientRepository
+            .GetList(filterRequest.ListLoveIngred);
         
-        var listStructers = await _structuresRepository.GetFilter(listId);
+        var listNotLoveIngredients = await _ingredientRepository
+            .GetList(filterRequest.ListLoveIngred);
 
-        var listIdDishFromStruc = _mapperHelper.MapStructuresToInt(listStructers);
+        var listIdLove = _mapperHelper.MapIngredToInt(listLoveIngredients);
+        var listIdNotLove = _mapperHelper.MapIngredToInt(listNotLoveIngredients);
+        
+        var listStructers = await _structuresRepository.GetFilter(listIdLove, listIdNotLove);
+
+        List<int?> listIdDishFromStruc = _mapperHelper.MapStructuresToInt(listStructers);
 
         var secondFilteredDishes = await _dishRepository.GetFilterIngred(listIdDishFromStruc);
 
         return _mapperHelper.MapDishToResponses(secondFilteredDishes);
 
         
+    }
+
+    public async Task AddDish(DishFullResponse dish, string username)
+    {
+        var dishEntity = _mapperHelper.MapDishFullToDishEntity(dish);
+
+        dishEntity.Id = null;
+        
+        var idDish = await _dishRepository.Add(dishEntity);
+
+        
+        
+        foreach (var item in dish.Ingredients!)
+        {
+            var structDish = new Structure();
+            
+            var bufferSplit = item!.Split();
+            
+            structDish.IdDish = (int)idDish!; 
+            structDish.Grammovka = Convert.ToInt16(bufferSplit[1]);
+            structDish.Measurement = bufferSplit[2];
+
+            var ingred = await _ingredientRepository.GetByName(bufferSplit[0]);
+
+            if (ingred == null)
+            {
+                var idIngre = await _ingredientRepository.AddByName(bufferSplit[0]);
+                structDish.IdIngredient = idIngre;
+            }
+            else
+            {
+                structDish.IdIngredient = ingred.Id;
+            }
+
+            await _structuresRepository.Add(structDish);
+
+        }
+
+        await LikeDish(username, (int)idDish!);
+
     }
 }

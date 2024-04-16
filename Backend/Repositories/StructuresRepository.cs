@@ -19,28 +19,20 @@ public class StructuresRepository(AppDbContext dataBase) : IStructuresRepository
             .ToListAsync();
     }
 
-    public async Task Add(AddDishRequest dish)
+    public async Task Add(Structure dishStruct)
     {
-        foreach (var sostav in (from ingre in dish.Ingredients 
-                                                    from gram in dish.ListGrammovki 
-                                                    from mease in dish.ListMeasurement 
-                                                    select  Tuple.Create(ingre, gram, mease)))
-        {
-            //var intityInBase = new Structure(dish.IdDish, dish.Dish, sostav.Item1.Id, sostav.Item1, sostav.Item2, sostav.Item3);
+        await _dataBase.Structures.AddAsync(dishStruct);
 
-            //await _dataBase.Structures.AddAsync(intityInBase);
-
-        }
-
-        
     }
 
-    public async Task<List<Structure>> GetFilter(List<int>? listIngred)
+    public async Task<List<Structure>> GetFilter(List<int>? listLoveInger,List<int>? listNotLoveInger)
     {
         return await _dataBase.Structures
             .AsNoTracking()
-            .Where(p=> listIngred!.Contains(p.IdIngredient))
+            .Where(p=> 
+                (listLoveInger!.Contains(p.IdIngredient)) &&
+                (!listNotLoveInger!.Contains(p.IdIngredient))
+                )
             .ToListAsync();
-
     }
 }
