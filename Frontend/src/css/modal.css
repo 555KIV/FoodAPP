@@ -9,8 +9,8 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(100px);
   transform: scale(0);
+  z-index: 999;
 }
 .modal.active {
   transform: scale(1);
@@ -30,7 +30,7 @@
   font-family: Candara, serif;
   display: flex;
   flex-direction: column;
-  margin: 1vmax;
+  margin: 1vmin;
 }
 
 .modalContent .error {
@@ -43,8 +43,14 @@
 .modalContent .error .errored {
   display: flex;
 }
-
+.modalContent .logError {
+  align-self: center;
+  margin-bottom: 0;
+  font-size: 3vmin;
+  color: red;
+}
 .modalContent legend {
+  font-size: 1.2em;
   align-self: center;
 }
 .modalContent input {

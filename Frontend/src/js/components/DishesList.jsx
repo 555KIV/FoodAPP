@@ -8,6 +8,7 @@ export default function DishesList(filterResponse) {
           return (
             <FoodCard
               key={item.id}
+              id={item.id}
               dishName={item.name}
               calories={item.calories}
               carbohydrates={item.carbohydrates}

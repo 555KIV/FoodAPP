@@ -10,6 +10,8 @@ export default function LoginModal({
 }) {
   const [userName, setUserName] = useState("");
   const [pass, setPass] = useState("");
+  const [responseOk, setResponseOk] = useState(false);
+  const [showErr, setShowErr] = useState(false);
 
   const createNewUser = async (event) => {
     event.preventDefault();
@@ -27,6 +29,13 @@ export default function LoginModal({
         body: JSON.stringify(sendObj),
       })
         .then((response) => {
+          if (responseOk) {
+            setResponseOk(true);
+            setShowErr(false);
+          } else {
+            setResponseOk(false);
+            setShowErr(true);
+          }
           return response.json();
         })
         .then((data) => {
@@ -48,7 +57,10 @@ export default function LoginModal({
   return (
     <div
       className={active ? "modal active" : "modal"}
-      onClick={() => setActive(false)}
+      onClick={() => {
+        setActive(false);
+        setShowErr(false);
+      }}
     >
       <form
         className="modalContent"
@@ -57,6 +69,11 @@ export default function LoginModal({
         onSubmit={createNewUser}
       >
         <legend>Вход</legend>
+        {!responseOk && showErr ? (
+          <div className="logError">Проверьте введённые данные</div>
+        ) : (
+          <div></div>
+        )}
         <label>
           Введите имя пользователя:
           <input

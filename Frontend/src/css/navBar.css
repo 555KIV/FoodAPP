@@ -29,6 +29,21 @@
   display: flex;
   justify-content: flex-start;
 }
+.routingItemBtn {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  font-family: "Candara", serif;
+  font-size: 3.5vmin;
+  align-content: center;
+  text-decoration: none;
+  color: white;
+  padding: 2vmin;
+}
+.routingItemBtn:hover {
+  cursor: pointer;
+  background: rgba(139, 173, 8, 0.5);
+  color: white;
+}
 .routingItem {
   font-family: "Candara", serif;
   font-size: 3.5vmin;

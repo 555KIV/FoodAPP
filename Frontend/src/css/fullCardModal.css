@@ -1,0 +1,38 @@
+.fullCardModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fullCardContent {
+  width: 60vw;
+  position: fixed;
+  font-family: Candara, serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vmax;
+  padding: 2vmax;
+  border-radius: 10px;
+  background-color: rgba(131, 131, 131, 0.4);
+  backdrop-filter: blur(10px);
+  font-size: 3.5vmin;
+}
+.ingredients {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.ingredient {
+  margin: 0 1vmin;
+}
+.fullCardTitle {
+  align-self: center;
+  font-size: 1.5em;
+}
