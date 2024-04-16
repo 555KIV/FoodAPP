@@ -1,6 +1,6 @@
 .dishesList {
   position: absolute;
-  background: #b6c6ca;
+  background: rgba(182, 198, 202, 1);
   top: 100vh;
   height: 100vh;
   width: 100vw;
@@ -25,6 +25,10 @@
   background-color: rgba(0, 0, 0, 1);
   backdrop-filter: blur(10px);
   font-size: 3.5vmin;
+}
+.dishCard:hover {
+  scale: 1.2;
+  cursor: pointer;
 }
 .dishTitle {
   padding: 1vmin;

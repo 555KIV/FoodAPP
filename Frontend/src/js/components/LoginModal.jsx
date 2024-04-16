@@ -10,6 +10,8 @@ export default function LoginModal({
 }) {
   const [userName, setUserName] = useState("");
   const [pass, setPass] = useState("");
+  const [responseOk, setResponseOk] = useState(false);
+  const [showErr, setShowErr] = useState(false);
 
   const createNewUser = async (event) => {
     event.preventDefault();
@@ -25,20 +27,28 @@ export default function LoginModal({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sendObj),
-      }).then((response) => {
-        console.log(response);
-        if (response.ok) {
-          localStorage.setItem("token", response.body.accessToken);
-          localStorage.setItem("userName", response.body.username);
+      })
+        .then((response) => {
+          if (responseOk) {
+            setResponseOk(true);
+            setShowErr(false);
+          } else {
+            setResponseOk(false);
+            setShowErr(true);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("token", data.accessToken);
+          localStorage.setItem("userName", data.username);
           setAuth(true);
           setActive(false);
-          setResponseUserName(response.body.username);
-        }
-        //localStorage.setItem("token", "123");
-        //localStorage.setItem("userName", "Bob");
-        //setActive(false);
-        //setAuth(true);
-      });
+          setResponseUserName(data.username);
+          //localStorage.setItem("token", "123");
+          //localStorage.setItem("userName", "Bob");
+          //setActive(false);
+          //setAuth(true);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -47,7 +57,10 @@ export default function LoginModal({
   return (
     <div
       className={active ? "modal active" : "modal"}
-      onClick={() => setActive(false)}
+      onClick={() => {
+        setActive(false);
+        setShowErr(false);
+      }}
     >
       <form
         className="modalContent"
@@ -56,6 +69,11 @@ export default function LoginModal({
         onSubmit={createNewUser}
       >
         <legend>Вход</legend>
+        {!responseOk && showErr ? (
+          <div className="logError">Проверьте введённые данные</div>
+        ) : (
+          <div></div>
+        )}
         <label>
           Введите имя пользователя:
           <input

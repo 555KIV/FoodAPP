@@ -1,0 +1,88 @@
+.dishModal {
+  transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(0);
+  z-index: 999;
+}
+.dishModal.active {
+  transform: scale(1);
+}
+.dishModalContent {
+  height: 70vh;
+  font-family: Candara, serif;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 1vmax;
+  border-radius: 10px;
+  background-color: rgba(131, 131, 131, 0.2);
+  backdrop-filter: blur(10px);
+  font-size: 3.5vmin;
+}
+.dishModalContent legend {
+  align-self: center;
+}
+.dishModalContent label {
+  margin-bottom: 3vmin;
+  margin-right: 3vmin;
+  display: flex;
+  flex-direction: column;
+}
+.dishModalContent input {
+  margin: 1vmin 0;
+  text-indent: 1vmin;
+  border-radius: 10px;
+  width: 30vw;
+  font-size: 3vmin;
+  padding: 1vmin 0;
+  border: none;
+}
+.dishFormInput {
+  margin: 1vmin 0;
+  border-radius: 10px;
+  width: 30vw;
+  font-size: 3vmin;
+  padding: 1vmin;
+  border: none;
+}
+.dishModalContent textarea {
+  margin: 1vmin 0;
+  width: 30vw;
+  border-radius: 10px;
+  font-size: 3vmin;
+  padding: 1vmin;
+  border: none;
+}
+.dishModalContent button {
+  width: 31vw;
+  background: white;
+  border-radius: 10px;
+  border: none;
+  padding: 1vmin;
+  font-size: 3vmin;
+  margin-bottom: 3vmin;
+  margin-right: 3vmin;
+}
+.dishModalContent button:hover {
+  cursor: pointer;
+  color: white;
+  background: rgba(0, 255, 13, 0.5);
+  box-shadow: 1px 1px 100px rgba(0, 0, 0, 0.3);
+}
+.success {
+  color: green;
+  align-self: center;
+}
+.fail {
+  color: red;
+  align-self: center;
+}
