@@ -6,74 +6,7 @@ import { useState } from "react";
 import DishesList from "./components/DishesList";
 export default function App() {
   const [activeDesc, setActiveDesc] = useState(true);
-  const [filterResponse, setFilterResponse] = useState([
-    {
-      id: 1,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-    {
-      id: 2,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-    {
-      id: 3,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-    {
-      id: 4,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-    {
-      id: 5,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-    {
-      id: 6,
-      name: "Салат",
-      calories: 100,
-      carbohydrates: 20,
-      fats: 25,
-      squirrels: 20,
-      cookingTime: "5 мин",
-      idImageLow: 1,
-      typeFood: "Завтрак",
-    },
-  ]);
+  const [filterResponse, setFilterResponse] = useState([]);
   return (
     <>
       <Header activeDesc={activeDesc} setActiveDesc={setActiveDesc}></Header>

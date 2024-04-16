@@ -1,22 +1,34 @@
 import RegModal from "./RegModal";
 import LoginModal from "./LoginModal";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function Auth({ auth, setAuth }) {
   const [regModalActive, setRegModalActive] = useState(false);
   const [loginModalActive, setLoginModalActive] = useState(false);
   const [responseUserName, setResponseUserName] = useState("Гость");
-  document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("token")) {
+  const [cookies, setCookie, removeCookie] = useCookies(["username", "token"]);
+
+  window.addEventListener("DOMContentLoaded", () => {
+    if (cookies.token) {
+      setResponseUserName(cookies.username);
       setAuth(true);
-      setResponseUserName(localStorage.getItem("userName"));
     }
   });
+
+  const enter = () => {
+    if (cookies.token) {
+      setResponseUserName(cookies.username);
+      setAuth(true);
+    } else {
+      setLoginModalActive(true);
+    }
+  };
 
   return (
     <>
       <div className={!auth ? "authList authActive" : "authList"}>
-        <button className="authItem" onClick={() => setLoginModalActive(true)}>
+        <button className="authItem" onClick={enter}>
           Вход
         </button>
         <button className="authItem" onClick={() => setRegModalActive(true)}>
@@ -29,6 +41,7 @@ export default function Auth({ auth, setAuth }) {
         setActive={setRegModalActive}
       ></RegModal>
       <LoginModal
+        setCookie={setCookie}
         setResponseUserName={setResponseUserName}
         setAuth={setAuth}
         active={loginModalActive}
@@ -40,8 +53,8 @@ export default function Auth({ auth, setAuth }) {
           className="unAuthUserBtn"
           onClick={() => {
             setAuth(false);
-            localStorage.removeItem("token");
-            localStorage.removeItem("userName");
+            removeCookie("username");
+            removeCookie("token");
           }}
         >
           ×

@@ -5,23 +5,31 @@ import NewDishModal from "./NewDishModal";
 export default function NavLinks({ setActiveDesc }) {
   const [auth, setAuth] = useState(false);
   const [newDishModalActive, setNewDishModalActive] = useState(false);
+  let height = 0;
+  setTimeout(() => (height = document.querySelector("img").height), 100);
   return (
     <>
       <nav className="navBar">
         <div className="navRouting">
-          <a className="routingItem" href="/">
-            Главная
-          </a>
-          <a
-            className="routingItem"
-            href="/"
-            onClick={() => setActiveDesc(true)}
-          >
-            Анкета
-          </a>
           <button
             className="routingItemBtn"
-            href="/"
+            onClick={() =>
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+            }
+          >
+            Главная
+          </button>
+          <button
+            className="routingItemBtn"
+            onClick={() => {
+              window.scrollTo({ top: height, left: 0, behavior: "smooth" });
+              setActiveDesc(true);
+            }}
+          >
+            Анкета
+          </button>
+          <button
+            className="routingItemBtn"
             onClick={() => setNewDishModalActive(true)}
           >
             Новый рецепт
