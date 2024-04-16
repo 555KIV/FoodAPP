@@ -64,6 +64,7 @@ export default function NewDishModal({
         onClick={(e) => e.stopPropagation()}
         onSubmit={sendNewDish}
       >
+        <label className="dishModalTitle">Новое блюдо</label>
         <label>
           Введите название блюда:
           <input

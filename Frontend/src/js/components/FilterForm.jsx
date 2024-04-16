@@ -15,7 +15,7 @@ export default function FilterForm({ setActiveDesc, setFilterResponse }) {
       listNotLoveIngred: requiredNot,
     };
     try {
-      await fetch("api/dishes/filter", {
+      await fetch("/api/dishes/filter", {
         method: "POST",
         headers: {
           Accept: "application/json",

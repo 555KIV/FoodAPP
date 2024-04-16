@@ -16,47 +16,51 @@
   transform: scale(1);
 }
 .dishModalContent {
+  align-items: center;
+  overflow: auto;
+  width: 50vw;
   height: 70vh;
   font-family: Candara, serif;
   color: white;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   padding: 1vmax;
   border-radius: 10px;
-  background-color: rgba(131, 131, 131, 0.2);
+  background-color: rgba(79, 97, 102, 0.7);
   backdrop-filter: blur(10px);
   font-size: 3.5vmin;
 }
-.dishModalContent legend {
-  align-self: center;
+.dishModalTitle {
+  align-items: center;
 }
 .dishModalContent label {
+  width: 90%;
   margin-bottom: 3vmin;
   margin-right: 3vmin;
   display: flex;
   flex-direction: column;
 }
 .dishModalContent input {
+  align-self: center;
   margin: 1vmin 0;
   text-indent: 1vmin;
   border-radius: 10px;
-  width: 30vw;
+  width: 100%;
   font-size: 3vmin;
   padding: 1vmin 0;
   border: none;
 }
 .dishFormInput {
+  width: 100%;
   margin: 1vmin 0;
   border-radius: 10px;
-  width: 30vw;
   font-size: 3vmin;
   padding: 1vmin;
   border: none;
 }
 .dishModalContent textarea {
+  height: 38vh;
   margin: 1vmin 0;
-  width: 30vw;
   border-radius: 10px;
   font-size: 3vmin;
   padding: 1vmin;

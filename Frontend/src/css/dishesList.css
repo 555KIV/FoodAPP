@@ -22,12 +22,13 @@
   flex-direction: column;
   padding: 2vmax;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #4f6166;
   backdrop-filter: blur(10px);
   font-size: 3.5vmin;
 }
 .dishCard:hover {
-  scale: 1.2;
+  filter: drop-shadow(1px 10px 10px black);
+  scale: 1.05;
   cursor: pointer;
 }
 .dishTitle {

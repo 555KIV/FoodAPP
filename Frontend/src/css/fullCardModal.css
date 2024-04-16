@@ -11,7 +11,9 @@
   align-items: center;
 }
 .fullCardContent {
-  width: 60vw;
+  overflow-y: auto;
+  height: 70vh;
+  width: 50vw;
   position: fixed;
   font-family: Candara, serif;
   color: white;

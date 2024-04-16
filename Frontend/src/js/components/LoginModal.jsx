@@ -3,6 +3,7 @@ import { useState } from "react";
 import { sha256 } from "js-sha256";
 
 export default function LoginModal({
+  setCookie,
   active,
   setActive,
   setAuth,
@@ -39,15 +40,11 @@ export default function LoginModal({
           return response.json();
         })
         .then((data) => {
-          localStorage.setItem("token", data.accessToken);
-          localStorage.setItem("userName", data.username);
+          setCookie("username", data.username, { maxAge: 43200 });
+          setCookie("token", data.accessToken, { maxAge: 43200 });
+          setResponseUserName(data.username);
           setAuth(true);
           setActive(false);
-          setResponseUserName(data.username);
-          //localStorage.setItem("token", "123");
-          //localStorage.setItem("userName", "Bob");
-          //setActive(false);
-          //setAuth(true);
         });
     } catch (err) {
       console.log(err);

@@ -25,11 +25,11 @@ export default function FoodCard({
     typeFood: "",
     ingredients: [],
   });
-  const showFullCard = (e) => {
-    setCardModalActive(true);
+  const showFullCard = () => {
+    getFullCard().then(() => setCardModalActive(true));
   };
   const getFullCard = async () => {
-    await fetch(`api/dishes/get-dish=${id}`, {
+    await fetch(`/api/dishes/get-dish=${id}`, {
       method: "GET",
     })
       .then((response) => {
