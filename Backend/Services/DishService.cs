@@ -135,7 +135,7 @@ public class DishService(IDishRepository dishRepository,
             .GetList(filterRequest.ListLoveIngred);
         
         var listNotLoveIngredients = await _ingredientRepository
-            .GetList(filterRequest.ListLoveIngred);
+            .GetList(filterRequest.ListNotLoveIngred);
 
         var listIdLove = _mapperHelper.MapIngredToInt(listLoveIngredients);
         var listIdNotLove = _mapperHelper.MapIngredToInt(listNotLoveIngredients);
@@ -146,7 +146,11 @@ public class DishService(IDishRepository dishRepository,
 
         var secondFilteredDishes = await _dishRepository.GetFilterIngred(listIdDishFromStruc);
 
-        return _mapperHelper.MapDishToResponses(secondFilteredDishes);
+        var finalFilteredDishes = firstListFilteredDishes.Select(x => x.Id).Intersect(secondFilteredDishes.Select(y=>y.Id)).ToList();
+
+        var filteredDishes = await _dishRepository.GetFilteredById(finalFilteredDishes);
+        
+        return _mapperHelper.MapDishToResponses(filteredDishes);
 
         
     }
@@ -165,17 +169,17 @@ public class DishService(IDishRepository dishRepository,
         {
             var structDish = new Structure();
             
-            var bufferSplit = item!.Split();
+            var bufferSplit = item!.Trim().Split();
             
             structDish.IdDish = (int)idDish!; 
-            structDish.Grammovka = Convert.ToInt16(bufferSplit[1]);
-            structDish.Measurement = bufferSplit[2];
+            structDish.Grammovka = Convert.ToInt16(bufferSplit[1].Trim());
+            structDish.Measurement = bufferSplit[2].Trim();
 
-            var ingred = await _ingredientRepository.GetByName(bufferSplit[0]);
+            var ingred = await _ingredientRepository.GetByName(bufferSplit[0].Trim());
 
             if (ingred == null)
             {
-                var idIngre = await _ingredientRepository.AddByName(bufferSplit[0]);
+                var idIngre = await _ingredientRepository.AddByName(bufferSplit[0].Trim());
                 structDish.IdIngredient = idIngre;
             }
             else

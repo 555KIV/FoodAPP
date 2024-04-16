@@ -74,4 +74,13 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
             .ToListAsync();
 
     }
+
+    public async Task<List<Dish>> GetFilteredById(List<int?> finalFilteredDishes)
+    {
+        return await _dataBase.Dishes
+            .AsNoTracking()
+            .Where(p => finalFilteredDishes.Contains(p.Id))
+            .ToListAsync();
+
+    }
 }

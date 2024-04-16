@@ -17,4 +17,6 @@ public interface IDishRepository
     Task<List<Dish>> GetFilterTypeAndCalories(string? typefood, Tuple<short, short>? calories);
 
     Task<List<Dish>> GetFilterIngred(List<int?> listId);
+
+    Task<List<Dish>> GetFilteredById(List<int?> finalFilteredDishes);
 }
