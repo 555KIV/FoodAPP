@@ -10,11 +10,11 @@ public interface IDishRepository
 
     Task<List<Dish>> GetPage(int page, int size);
 
-    Task<List<Dish>> GetFew(List<int> indexes);
+    Task<List<Dish>> GetFew(List<int?> indexes);
 
-    Task Add(Dish dish);
+    Task<int?> Add(Dish dish);
 
     Task<List<Dish>> GetFilterTypeAndCalories(string? typefood, Tuple<short, short>? calories);
 
-    Task<List<Dish>> GetFilterIngred(List<int> listId);
+    Task<List<Dish>> GetFilterIngred(List<int?> listId);
 }

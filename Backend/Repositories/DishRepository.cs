@@ -23,7 +23,7 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
         return await _dataBase.Dishes.AsNoTracking().ToListAsync();
     }
 
-    public async Task<List<Dish>> GetFew(List<int> indexes)
+    public async Task<List<Dish>> GetFew(List<int?> indexes)
     {
         return await _dataBase.Dishes
             .AsNoTracking()
@@ -41,12 +41,17 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
             .ToListAsync();
     }
 
-    public async Task Add(Dish dish)
+    public async Task<int?> Add(Dish dish)
     {
         await _dataBase.Dishes.AddAsync(dish);
         await _dataBase.SaveChangesAsync();
         
-        return;
+        var id = await _dataBase.Dishes
+            .AsNoTracking()
+            .OrderBy(p => p.Id)
+            .LastAsync();
+        
+        return id.Id;
     }
 
     public async Task<List<Dish>> GetFilterTypeAndCalories(string? typefood, Tuple<short, short>? calories)
@@ -61,7 +66,7 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
 
     }
 
-    public async Task<List<Dish>> GetFilterIngred(List<int> listId)
+    public async Task<List<Dish>> GetFilterIngred(List<int?> listId)
     {
         return await _dataBase.Dishes
             .AsNoTracking()

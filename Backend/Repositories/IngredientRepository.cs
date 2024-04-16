@@ -15,6 +15,13 @@ public class IngredientRepository(AppDbContext dataBase) : IIngredientRepository
             .FirstOrDefaultAsync(item => item.Id == id);
         return ingredient;
     }
+    public async Task<Ingredient?> GetByName(string name)
+    {
+        var ingredient = await _dataBase.Ingredients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(item => item.Name == name);
+        return ingredient;
+    }
 
     public async Task<List<Ingredient>> GetAll()
     {
@@ -23,21 +30,28 @@ public class IngredientRepository(AppDbContext dataBase) : IIngredientRepository
             .ToListAsync();
     }
 
-    public async Task Add(Ingredient ingredient)
+    public async Task<int> AddByName(string name)
     {
+        var ingredient = new Ingredient();
+        ingredient.Name = name;
+        
         await _dataBase.Ingredients.AddAsync(ingredient);
         await _dataBase.SaveChangesAsync();
         
-        return;
+        var id = await _dataBase.Ingredients
+            .AsNoTracking()
+            .OrderBy(p => p.Id)
+            .LastAsync();
+        
+        return id.Id;
     }
     
-    public async Task<List<Ingredient>?> GetFilter(List<string?>? listLike, List<string?>? listNot)
+    public async Task<List<Ingredient>?> GetList(List<string?>? listLike)
     {
         return await _dataBase.Ingredients
             .AsNoTracking()
             .Where(p =>
-                (listLike!.Contains(p.Name)) &&
-                (!listNot!.Contains(p.Name))
+                (listLike!.Contains(p.Name))
             )
             .ToListAsync();
         

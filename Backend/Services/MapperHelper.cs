@@ -28,16 +28,28 @@ public class MapperHelper : IMapperHelper
 
         return results;
     }
-    public List<int> MapStructuresToInt(List<Structure>? item)
+    public List<int?> MapStructuresToInt(List<Structure>? item)
     {
         var config = new MapperConfiguration(cfg => cfg.CreateMap<Structure, int>()
             .ConstructUsing(source => source.IdDish));
 
         var mapper = new Mapper(config);
 
-        var results = mapper.Map<List<Structure>, List<int>>(item!);
+        List<int?> results = mapper.Map<List<Structure>, List<int?>>(item!);
 
         return results;
+    }
+
+    public Dish MapDishFullToDishEntity(DishFullResponse? item)
+    {
+        var config = new MapperConfiguration(cfg => cfg.CreateMap<DishFullResponse, Dish>());
+
+        var mapper = new Mapper(config);
+
+        var results = mapper.Map<DishFullResponse, Dish>(item!);
+
+        return results;
+        
     }
 
     

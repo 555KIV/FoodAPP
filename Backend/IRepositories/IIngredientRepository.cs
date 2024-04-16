@@ -6,10 +6,12 @@ public interface IIngredientRepository
 {
     Task<Ingredient?> Get(int id);
 
+    Task<Ingredient?> GetByName(string name);
+
     Task<List<Ingredient>> GetAll();
 
-    Task Add(Ingredient ingredient);
+    Task<int> AddByName(string name);
 
-    Task<List<Ingredient>?> GetFilter(List<string?>? listLike, List<string?>? listNot);
+    Task<List<Ingredient>?> GetList(List<string?>? listLike);
 
 }

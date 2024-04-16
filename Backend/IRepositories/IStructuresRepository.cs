@@ -7,9 +7,9 @@ public interface IStructuresRepository
 {
     Task<List<Structure>> GetAllByIdDish(int id);
 
-    Task<List<Structure>> GetFilter(List<int>? listIngred);
+    Task<List<Structure>> GetFilter(List<int>? listLoveInger, List<int>? listNotLoveInger);
 
-    Task Add(AddDishRequest dish);
+    Task Add(Structure dishStruct);
     
     
 }
