@@ -10,7 +10,7 @@ namespace Backend.Controllers;
 [Route("api/dishes")]
 public class DishesController(IDishService dishService) : ControllerBase
 {
-    private IDishService _dishService = dishService;
+    private readonly IDishService _dishService = dishService;
 
     [HttpGet("get-all")]
     public async Task<ActionResult<List<DishesResponse>>> GetDishesAll()

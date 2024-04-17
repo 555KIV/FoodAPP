@@ -129,7 +129,7 @@ public class DishService(IDishRepository dishRepository,
     public async Task<List<DishesResponse>> GetDishesFilter(FilterRequest filterRequest)
     {
         var firstListFilteredDishes = await _dishRepository
-            .GetFilterTypeAndCalories(filterRequest.Typefood, filterRequest.Calories);
+            .GetFilterTypeAndCalories(filterRequest.Typefood!.Trim(), filterRequest.Calories);
 
         var listLoveIngredients = await _ingredientRepository
             .GetList(filterRequest.ListLoveIngred);
@@ -139,13 +139,15 @@ public class DishService(IDishRepository dishRepository,
 
         var listIdLove = _mapperHelper.MapIngredToInt(listLoveIngredients);
         var listIdNotLove = _mapperHelper.MapIngredToInt(listNotLoveIngredients);
+
+        var listNotStructers = await _structuresRepository.GetAllByNotIngred(listIdNotLove);
         
         var listStructers = await _structuresRepository.GetFilter(listIdLove, listIdNotLove);
 
-        List<int?> listIdDishFromStruc = _mapperHelper.MapStructuresToInt(listStructers);
+        var listFinalStrutc = listStructers.Select(x => x.IdDish).Except(listNotStructers.Select(y => y.IdDish)).ToList();
 
-        var secondFilteredDishes = await _dishRepository.GetFilterIngred(listIdDishFromStruc);
-
+        var secondFilteredDishes = await _dishRepository.GetFilterIngred(listFinalStrutc);
+        
         var finalFilteredDishes = firstListFilteredDishes.Select(x => x.Id).Intersect(secondFilteredDishes.Select(y=>y.Id)).ToList();
 
         var filteredDishes = await _dishRepository.GetFilteredById(finalFilteredDishes);
@@ -169,11 +171,13 @@ public class DishService(IDishRepository dishRepository,
         {
             var structDish = new Structure();
             
-            var bufferSplit = item!.Trim().Split();
+            var bufferSplit = item!.Trim().Split('-');
+            var bufMeasSplit = bufferSplit[1].Trim().Split();
+            
             
             structDish.IdDish = (int)idDish!; 
-            structDish.Grammovka = Convert.ToInt16(bufferSplit[1].Trim());
-            structDish.Measurement = bufferSplit[2].Trim();
+            structDish.Grammovka = Convert.ToInt16(bufMeasSplit[0].Trim());
+            structDish.Measurement = bufMeasSplit[1].Trim();
 
             var ingred = await _ingredientRepository.GetByName(bufferSplit[0].Trim());
 

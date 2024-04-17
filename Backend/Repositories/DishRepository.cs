@@ -66,11 +66,11 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
 
     }
 
-    public async Task<List<Dish>> GetFilterIngred(List<int?> listId)
+    public async Task<List<Dish>> GetFilterIngred(List<int> listId)
     {
         return await _dataBase.Dishes
             .AsNoTracking()
-            .Where(p => listId.Contains(p.Id))
+            .Where(p => listId.Contains((int)p.Id!))
             .ToListAsync();
 
     }
@@ -79,8 +79,10 @@ public class DishRepository(AppDbContext dataBase) : IDishRepository
     {
         return await _dataBase.Dishes
             .AsNoTracking()
-            .Where(p => finalFilteredDishes.Contains(p.Id))
+            .Where(p => finalFilteredDishes.Contains((int)p.Id!))
             .ToListAsync();
 
     }
+    
+
 }

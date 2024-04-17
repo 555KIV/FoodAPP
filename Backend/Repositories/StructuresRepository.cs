@@ -18,6 +18,13 @@ public class StructuresRepository(AppDbContext dataBase) : IStructuresRepository
             .Include(u=>u.Ingredient)
             .ToListAsync();
     }
+    public async Task<List<Structure>> GetAllByNotIngred(List<int> idIngred)
+    {
+        return await _dataBase.Structures
+            .Where(item => idIngred.Contains(item.IdIngredient))
+            .Include(u=>u.Ingredient)
+            .ToListAsync();
+    }
 
     public async Task Add(Structure dishStruct)
     {

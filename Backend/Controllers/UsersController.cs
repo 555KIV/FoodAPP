@@ -1,12 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Backend.EntityDb;
-using Backend.Model;
+﻿using Backend.Model;
 using Backend.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace Backend.Controllers;
 
@@ -29,7 +24,7 @@ public class UsersController(IUsersService userService) : ControllerBase
 
         try
         {
-            var token = _usersService.Login(loginData.Username, loginData.Password);
+            var token = _usersService.Login(loginData.Username!, loginData.Password!);
             UserAuthResponse response = new UserAuthResponse(loginData.Username, token.Result);
         
             return Results.Json(response);
@@ -45,6 +40,11 @@ public class UsersController(IUsersService userService) : ControllerBase
     [HttpPost("register")]
     public async Task<IResult> PostRegistr(UserAuthRequest regisData)
     {
+        var user = await _usersService.GetUser(regisData.Username);
+        
+        if (user != null) 
+            return Results.Problem();
+        
         await _usersService.Register(regisData);
         
         return Results.Ok();
