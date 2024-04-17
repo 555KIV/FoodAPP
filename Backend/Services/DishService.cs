@@ -132,10 +132,10 @@ public class DishService(IDishRepository dishRepository,
             .GetFilterTypeAndCalories(filterRequest.Typefood!.Trim(), filterRequest.Calories);
 
         var listLoveIngredients = await _ingredientRepository
-            .GetList(filterRequest.ListLoveIngred);
+            .GetList(filterRequest.ListLoveIngred!.Select(x=>x.Trim()).ToList());
         
         var listNotLoveIngredients = await _ingredientRepository
-            .GetList(filterRequest.ListNotLoveIngred);
+            .GetList(filterRequest.ListNotLoveIngred!.Select(x=>x.Trim()).ToList());
 
         var listIdLove = _mapperHelper.MapIngredToInt(listLoveIngredients);
         var listIdNotLove = _mapperHelper.MapIngredToInt(listNotLoveIngredients);
