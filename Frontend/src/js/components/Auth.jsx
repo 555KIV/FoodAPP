@@ -3,11 +3,10 @@ import LoginModal from "./LoginModal";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-export default function Auth({ auth, setAuth }) {
+export default function Auth({ auth, setAuth, setCookie, removeCookie }) {
   const [regModalActive, setRegModalActive] = useState(false);
   const [loginModalActive, setLoginModalActive] = useState(false);
   const [responseUserName, setResponseUserName] = useState("Гость");
-  const [cookies, setCookie, removeCookie] = useCookies(["username", "token"]);
 
   window.addEventListener("DOMContentLoaded", () => {
     if (cookies.token) {

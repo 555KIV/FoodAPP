@@ -3,6 +3,15 @@ export default function ScrollBtns() {
   setTimeout(() => (height = document.querySelector("img").height), 100);
   let prevEventTime = 0;
   window.addEventListener("wheel", (ev) => {
+    if (
+      ev.target.localName === "form" ||
+      ev.target.localName === "label" ||
+      ev.target.localName === "button" ||
+      ev.target.localName === "select" ||
+      ev.target.localName === "textarea" ||
+      ev.target.localName === "input"
+    )
+      return;
     const newEventTime = ev.timeStamp;
     if (newEventTime - prevEventTime > 500) {
       window.scrollBy({
