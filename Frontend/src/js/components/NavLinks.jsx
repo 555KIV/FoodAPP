@@ -2,7 +2,12 @@ import Auth from "./Auth";
 import { useState } from "react";
 import NewDishModal from "./NewDishModal";
 
-export default function NavLinks({ setActiveDesc }) {
+export default function NavLinks({
+  cookies,
+  setActiveDesc,
+  setCookie,
+  removeCookie,
+}) {
   const [auth, setAuth] = useState(false);
   const [newDishModalActive, setNewDishModalActive] = useState(false);
   let height = 0;
@@ -36,10 +41,16 @@ export default function NavLinks({ setActiveDesc }) {
           </button>
         </div>
         <NewDishModal
+          cookies={cookies}
           newDishModalActive={newDishModalActive}
           setNewDishModalActive={setNewDishModalActive}
         ></NewDishModal>
-        <Auth auth={auth} setAuth={setAuth}></Auth>
+        <Auth
+          auth={auth}
+          setAuth={setAuth}
+          setCookie={setCookie}
+          removeCookie={removeCookie}
+        ></Auth>
       </nav>
     </>
   );

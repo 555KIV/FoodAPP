@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import "../../css/newDishModal.css";
 
 export default function NewDishModal({
+  cookies,
   newDishModalActive,
   setNewDishModalActive,
 }) {
@@ -32,7 +33,7 @@ export default function NewDishModal({
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + cookie.token,
         },
         body: JSON.stringify(data),
       }).then((response) => {

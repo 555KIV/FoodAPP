@@ -1,8 +1,8 @@
 import "../../css/dishesList.css";
 import ShowFullCardModal from "./ShowFullCardModal";
 import { useState } from "react";
-import data from "bootstrap/js/src/dom/data";
 export default function FoodCard({
+  cookies,
   id,
   dishName,
   carbohydrates,
@@ -45,7 +45,7 @@ export default function FoodCard({
     await fetch(`api/dishes/like-dish=${id}`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + cookies.token,
       },
     });
   };
