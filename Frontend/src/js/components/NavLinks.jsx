@@ -46,6 +46,7 @@ export default function NavLinks({
           setNewDishModalActive={setNewDishModalActive}
         ></NewDishModal>
         <Auth
+          cookies={cookies}
           auth={auth}
           setAuth={setAuth}
           setCookie={setCookie}
