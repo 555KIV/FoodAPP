@@ -43,7 +43,11 @@ export default function LoginModal({
           setCookie("username", data.username, { maxAge: 43200 });
           setCookie("token", data.accessToken, { maxAge: 43200 });
           setResponseUserName(data.username);
+          for (const eventElement of event.target.elements) {
+            eventElement.value = "";
+          }
           setAuth(true);
+          setShowErr(false);
           setActive(false);
         });
     } catch (err) {

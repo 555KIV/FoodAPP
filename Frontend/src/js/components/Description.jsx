@@ -1,6 +1,5 @@
 import "../../css/Description.css";
 import FilterForm from "./FilterForm";
-
 export default function Description({
   activeDesc,
   setActiveDesc,
