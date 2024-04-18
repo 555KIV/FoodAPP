@@ -24,7 +24,11 @@ export default function RegModal({ active, login, setActive }) {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(sendObj)
+          body: JSON.stringify(sendObj),
+        }).then(() => {
+          for (const eventElement of event.target.elements) {
+            eventElement.value = "";
+          }
         });
       } catch (err) {
         console.log(err);

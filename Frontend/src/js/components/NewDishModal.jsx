@@ -33,7 +33,7 @@ export default function NewDishModal({
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + cookie.token,
+          Authorization: "Bearer " + cookies.token,
         },
         body: JSON.stringify(data),
       }).then((response) => {

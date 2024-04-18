@@ -4,7 +4,7 @@ export default function DishesList({ filterResponse, cookies }) {
   return (
     <>
       <div className={"dishesList"}>
-        {filterResponse.filterResponse.map((item) => {
+        {filterResponse.map((item) => {
           return (
             <FoodCard
               cookies={cookies}

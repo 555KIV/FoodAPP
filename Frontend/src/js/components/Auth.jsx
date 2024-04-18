@@ -1,33 +1,29 @@
 import RegModal from "./RegModal";
 import LoginModal from "./LoginModal";
-import { useState } from "react";
-import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
 
-export default function Auth({ auth, setAuth, setCookie, removeCookie }) {
+export default function Auth({
+  auth,
+  setAuth,
+  cookies,
+  setCookie,
+  removeCookie,
+}) {
   const [regModalActive, setRegModalActive] = useState(false);
   const [loginModalActive, setLoginModalActive] = useState(false);
   const [responseUserName, setResponseUserName] = useState("Гость");
 
-  window.addEventListener("DOMContentLoaded", () => {
+  useEffect(() => {
     if (cookies.token) {
       setResponseUserName(cookies.username);
       setAuth(true);
     }
-  });
-
-  const enter = () => {
-    if (cookies.token) {
-      setResponseUserName(cookies.username);
-      setAuth(true);
-    } else {
-      setLoginModalActive(true);
-    }
-  };
+  }, [cookies.token, cookies.username, setAuth]);
 
   return (
     <>
       <div className={!auth ? "authList authActive" : "authList"}>
-        <button className="authItem" onClick={enter}>
+        <button className="authItem" onClick={() => setLoginModalActive(true)}>
           Вход
         </button>
         <button className="authItem" onClick={() => setRegModalActive(true)}>
